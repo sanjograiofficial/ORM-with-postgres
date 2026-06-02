@@ -5,7 +5,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -17,5 +17,5 @@ model Students {
   name      String
   email     String   @unique
   createdAt DateTime @default(now())
-  updatedAT DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
