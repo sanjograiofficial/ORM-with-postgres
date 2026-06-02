@@ -1,12 +1,16 @@
 import express from "express";
 import dotenv from "dotenv/config";
+import studentRouter from "./routes/student_routes.js";
 
 const app = express();
-let port = process.env.PORT;
+app.use(express.json());
 
+let port = process.env.PORT || 8000;
+
+app.use("/students", studentRouter);
 app.get("/", (req, res) => {
   res.json({
-    message: "This is ORM",
+    message: "Server started",
   });
 });
 
