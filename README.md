@@ -2,9 +2,9 @@
 ## Initial Step
 - npm init -y
 ## Package Install
-- npm i express dotenv pg prisma @prisma/client
+- npm i express dotenv pg @prisma/client @prisma/adapter-pg
 ## For Development
-- npm i -D nodemon
+- npm i -D nodemon prisma
 
 ```
 DATABASE_URL = "postgresql://user:password@host:port/databaseName?schema=public"
