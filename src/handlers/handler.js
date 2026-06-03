@@ -1,7 +1,7 @@
 import prisma from "../db/db.js";
 
 const getAllStudents = async (req, res) => {
-  let allStudents = prisma.FindMany();
+  let allStudents = prisma.students.findMany();
   res.json({
     message: "All students found",
     data: allStudents,
