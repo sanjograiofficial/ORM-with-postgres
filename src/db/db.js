@@ -8,4 +8,4 @@ const adapter = new PrismaPg({
 
 let prisma = new PrismaClient({ adapter });
 
-export default prisma;
+export default prisma ;

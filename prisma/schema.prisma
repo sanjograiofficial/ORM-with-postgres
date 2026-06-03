@@ -18,5 +18,5 @@ model students {
   name      String
   email     String   @unique
   createdAt DateTime @default(now())
-  updatedAT DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
