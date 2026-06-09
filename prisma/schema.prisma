@@ -14,9 +14,69 @@ datasource db {
 }
 
 model Students {
-  id        Int      @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  name         String
+  email        String        @unique
+  rollNo       Int           @map("roll_no")
+  departmentId Int           @map("department_id")
+  department   Department    @relation(fields: [departmentId], references: [id])
+  // one student may have multiple course enrollments
+  enrollments  Enrollments[]
+
+  // if want to change table name
+  @@map("students")
+}
+
+model Department {
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
   name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  // one dep has many students and teachers
+  students  Students[]
+  teachers  Teacher[]
+
+  @@map("department")
+}
+
+model Teacher {
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  name         String
+  email        String
+  departmentId Int        @map("department_id")
+  department   Department @relation(fields: [departmentId], references: [id])
+  // one teacher may teach many courses
+  courses      Course[]
+
+  @@map("teacher")
+}
+
+model Course {
+  id          Int           @id @default(autoincrement())
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+  name        String
+  credit      Float
+  teacherId   Int           @map("teacher_id")
+  teachers    Teacher       @relation(fields: [teacherId], references: [id])
+  enrollments Enrollments[]
+
+  @@map("course")
+}
+
+model Enrollments {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  studentId Int      @map("student_id")
+  student   Students @relation(fields: [studentId], references: [id])
+  courseId  Int      @map("course_id")
+  course    Course   @relation(fields: [courseId], references: [id])
+  enrollAt  DateTime @default(now()) @map("enroll_at")
+
+  @@map("enrollments")
 }
