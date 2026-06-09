@@ -4,8 +4,10 @@ import {
   getAllStudents,
   getStudentById,
   updateStudent,
-} from "../handlers/handler.js";
-import router from "./routes.js";
+} from "../handlers/studentHandler.js";
+import { Router } from "express";
+
+const router = Router();
 
 router.get("/", getAllStudents);
 router.get("/:id", getStudentById);
