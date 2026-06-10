@@ -11,7 +11,7 @@ import { validateAllFieldTypes } from "../validators/fieldValidators.js";
 
 const getAllDepartments = asyncHandler(async (req, res) => {
   let allDepartments = await getAllDepartmentsService();
-  if (allDepartments.length == 0) throw new Error("No student found");
+  if (allDepartments.length == 0) throw new Error("No department found");
 
   res.json({
     message: "All Departments found",
@@ -38,19 +38,19 @@ const getDepartmentById = asyncHandler(async (req, res) => {
 });
 const createDepartment = async (req, res) => {
   let data = req.body;
-  let { name, email } = data;
-  let validateMsg = validateAllFieldTypes("email", email);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
-  validateMsg = validateAllFieldTypes("name", name);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
+  // let { name, email } = data;
+  // let validateMsg = validateAllFieldTypes("email", email);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
+  // validateMsg = validateAllFieldTypes("name", name);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
   let createdDepartment = await createDepartmentService(data);
   res.status(201).json({
     message: "Department created successfully",

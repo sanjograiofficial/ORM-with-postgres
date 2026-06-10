@@ -37,19 +37,19 @@ const getStudentById = asyncHandler(async (req, res) => {
 });
 const createStudent = async (req, res) => {
   let data = req.body;
-  let { name, email } = data;
-  let validateMsg = validateAllFieldTypes("email", email);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
-  validateMsg = validateAllFieldTypes("name", name);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
+  // let { name, email } = data;
+  // let validateMsg = validateAllFieldTypes("email", email);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
+  // validateMsg = validateAllFieldTypes("name", name);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
   let createdStudent = await createStudentService(data);
   res.status(201).json({
     message: "Student created successfully",

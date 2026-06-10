@@ -60,6 +60,9 @@ CREATE TABLE "enrollments" (
 -- CreateIndex
 CREATE UNIQUE INDEX "students_email_key" ON "students"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "teacher_email_key" ON "teacher"("email");
+
 -- AddForeignKey
 ALTER TABLE "students" ADD CONSTRAINT "students_department_id_fkey" FOREIGN KEY ("department_id") REFERENCES "department"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

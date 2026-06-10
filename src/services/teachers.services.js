@@ -25,7 +25,12 @@ const updateTeacherService = async (id, data) => {
     where: {
       id,
     },
-    data,
+    data: {
+      id: Number,
+      email: String,
+      name: String,
+      departmentId: Number,
+    },
   });
   if (!teacher) {
     return res.status(404).json({

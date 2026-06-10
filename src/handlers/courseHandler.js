@@ -1,11 +1,17 @@
 import prisma from "../db/db.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
-import { createCourseService, deleteCourseService, getAllCoursesService, getCourseByIdService, updateCourseService } from "../services/course.service.js";
+import {
+  createCourseService,
+  deleteCourseService,
+  getAllCoursesService,
+  getCourseByIdService,
+  updateCourseService,
+} from "../services/course.service.js";
 import { validateAllFieldTypes } from "../validators/fieldValidators.js";
 
 const getAllCourses = asyncHandler(async (req, res) => {
   let allCourses = await getAllCoursesService();
-  if (allCourses.length == 0) throw new Error("No student found");
+  if (allCourses.length == 0) throw new Error("No course found");
 
   res.json({
     message: "All Courses found",
@@ -33,18 +39,18 @@ const getCourseById = asyncHandler(async (req, res) => {
 const createCourse = async (req, res) => {
   let data = req.body;
   let { name, email } = data;
-  let validateMsg = validateAllFieldTypes("email", email);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
-  validateMsg = validateAllFieldTypes("name", name);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
+  // let validateMsg = validateAllFieldTypes("email", email);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
+  // validateMsg = validateAllFieldTypes("name", name);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
   let createdCourse = await createCourseService(data);
   res.status(201).json({
     message: "Course created successfully",

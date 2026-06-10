@@ -5,7 +5,7 @@ import { validateAllFieldTypes } from "../validators/fieldValidators.js";
 
 const getAllEnrollment = asyncHandler(async (req, res) => {
   let allEnrollment = await getAllEnrollmentService();
-  if (allEnrollment.length == 0) throw new Error("No student found");
+  if (allEnrollment.length == 0) throw new Error("No enrollment found");
   
   res.json({
     message: "All Enrollment found",
@@ -33,18 +33,18 @@ const getEnrollmentById = asyncHandler(async (req, res) => {
 const createEnrollment = async (req, res) => {
   let data = req.body;
   let { name, email } = data;
-  let validateMsg = validateAllFieldTypes("email", email);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
-  validateMsg = validateAllFieldTypes("name", name);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
+  // let validateMsg = validateAllFieldTypes("email", email);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
+  // validateMsg = validateAllFieldTypes("name", name);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
   let createdEnrollment = await createEnrollmentService(data);
   res.status(201).json({
     message: "Enrollment created successfully",

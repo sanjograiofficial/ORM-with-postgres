@@ -11,10 +11,10 @@ import { validateAllFieldTypes } from "../validators/fieldValidators.js";
 
 const getAllTeachers = asyncHandler(async (req, res) => {
   let allTeachers = await getAllTeachersService();
-  if (allTeachers.length == 0) throw new Error("No student found");
+  if (allTeachers.length == 0) throw new Error("No teacher found");
   res.json({
     message: "All teachers found",
-    data: allStudents,
+    data: allTeachers,
   });
 });
 const getTeacherById = asyncHandler(async (req, res) => {
@@ -37,23 +37,23 @@ const getTeacherById = asyncHandler(async (req, res) => {
 });
 const createTeacher = async (req, res) => {
   let data = req.body;
-  let { name, email } = data;
-  let validateMsg = validateAllFieldTypes("email", email);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
-  validateMsg = validateAllFieldTypes("name", name);
-  if (validateMsg != null) {
-    return res.status(400).json({
-      error: validateMsg,
-    });
-  }
+  // let { name, email } = data;
+  // let validateMsg = validateAllFieldTypes("email", email);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
+  // validateMsg = validateAllFieldTypes("name", name);
+  // if (validateMsg != null) {
+  //   return res.status(400).json({
+  //     error: validateMsg,
+  //   });
+  // }
   let createdTeacher = await createTeacherService(data);
   res.status(201).json({
     message: "Teacher created successfully",
-    data: createTeacher,
+    data: createdTeacher,
   });
 };
 const updateTeacher = async (req, res) => {
