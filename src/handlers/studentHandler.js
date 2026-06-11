@@ -6,7 +6,7 @@ import {
   getAllStudentsService,
   getStudentByIdService,
   updateStudentService,
-} from "../services/students.services.js";
+} from "../services/students.service.js";
 import { validateAllFieldTypes } from "../validators/fieldValidators.js";
 
 const getAllStudents = asyncHandler(async (req, res) => {
@@ -69,7 +69,7 @@ const updateStudent = async (req, res) => {
     });
   }
   let data = req.body;
-  let { name, email } = req.body;
+  let { name, email, departmentId } = req.body;
   let updatedStudent = await updateStudentService(Number(id), data);
   res.status(200).json({
     message: "Student updated successfully",

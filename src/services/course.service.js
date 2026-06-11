@@ -1,14 +1,20 @@
 import prisma from "../db/db.js";
 
-
 const getAllCoursesService = async () => {
-  return await prisma.course.findMany();
+  return await prisma.course.findMany({
+    include: {
+      teachers: true,
+    },
+  });
 };
 
 const getCourseByIdService = async (id) => {
   const course = await prisma.course.findUnique({
     where: {
       id,
+    },
+    include: {
+      teachers: true,
     },
   });
   if (!course) throw new Error("No course found");

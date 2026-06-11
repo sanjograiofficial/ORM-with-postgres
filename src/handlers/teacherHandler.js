@@ -6,7 +6,7 @@ import {
   getAllTeachersService,
   getTeacherByIdService,
   updateTeacherService,
-} from "../services/teachers.services.js";
+} from "../services/teachers.service.js";
 import { validateAllFieldTypes } from "../validators/fieldValidators.js";
 
 const getAllTeachers = asyncHandler(async (req, res) => {
