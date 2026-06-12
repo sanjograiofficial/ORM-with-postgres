@@ -22,14 +22,29 @@ const getTeacherByIdService = async (id) => {
 };
 
 const createTeacherService = async (data) => {
+  const { name, email, departmentId } = data;
   return await prisma.teacher.create({
-    data,
+    data: {
+      name,
+      email,
+      department: { connect: { id: departmentId } },
+    },
+  });
+};
+const createTeacherWithDepartmentService = async (data) => {
+  const { name, email, departmentName } = data;
+  return await prisma.teacher.create({
+    data: {
+      name,
+      email,
+      department: { create: { name: departmentName } },
+    },
   });
 };
 
 const updateTeacherService = async (id, data) => {
   const { name, email, departmentId } = data;
-  const teacher = await prisma.teacher.update({
+  return await prisma.teacher.update({
     where: {
       id,
     },
@@ -41,25 +56,14 @@ const updateTeacherService = async (id, data) => {
       },
     },
   });
-  if (!teacher) {
-    return res.status(404).json({
-      message: "No teacher found with that id",
-    });
-  }
-  return teacher;
 };
 
 const deleteTeacherService = async (id) => {
-  const teacher = await prisma.teacher.delete({
+  return await prisma.teacher.delete({
     where: {
       id,
     },
   });
-  if (!teacher) {
-    return res.status(404).json({
-      message: "No teacher found with that id",
-    });
-  }
 };
 
 export {

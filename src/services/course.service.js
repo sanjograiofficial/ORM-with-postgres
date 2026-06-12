@@ -28,31 +28,20 @@ const createCourseService = async (data) => {
 };
 
 const updateCourseService = async (id, data) => {
-  const course = await prisma.course.update({
+  return await prisma.course.update({
     where: {
       id,
     },
     data,
   });
-  if (!course) {
-    return res.status(404).json({
-      message: "No course found with that id",
-    });
-  }
-  return course;
 };
 
 const deleteCourseService = async (id) => {
-  const course = await prisma.course.delete({
+  return await prisma.course.delete({
     where: {
       id,
     },
   });
-  if (!course) {
-    return res.status(404).json({
-      message: "No course found with that id",
-    });
-  }
 };
 
 export {

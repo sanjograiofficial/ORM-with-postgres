@@ -61,6 +61,9 @@ CREATE TABLE "enrollments" (
 CREATE UNIQUE INDEX "students_email_key" ON "students"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "department_name_key" ON "department"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "teacher_email_key" ON "teacher"("email");
 
 -- AddForeignKey

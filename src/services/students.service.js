@@ -18,6 +18,30 @@ const getAllStudentsService = async () => {
   });
   return student;
 };
+const getAllStudentsWithSelectService = async () => {
+  return await prisma.students.findMany({
+    select: {
+      name: true,
+      email: true,
+      id: true,
+      department: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      enrollments: true,
+    },
+  });
+};
+
+const sortStudentsService = async () => {
+  return await prisma.students.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+};
 // multi level include
 const getStudentByIdService = async (id) => {
   const student = await prisma.students.findUnique({
@@ -55,8 +79,11 @@ const createStudentWithDepartmentService = async (data) => {
       email,
       rollNo,
       department: {
-        create: {
-          name: departmentName,
+        connectOrCreate: {
+          where: { name: departmentName },
+          create: {
+            name: departmentName,
+          },
         },
       },
     },
@@ -78,11 +105,6 @@ const updateStudentService = async (id, data) => {
       },
     },
   });
-  if (!student) {
-    return res.status(404).json({
-      message: "No student found with that id",
-    });
-  }
   return student;
 };
 
@@ -92,16 +114,13 @@ const deleteStudentService = async (id) => {
       id,
     },
   });
-  if (!student) {
-    return res.status(404).json({
-      message: "No student found with that id",
-    });
-  }
 };
 
 export {
   getAllStudentsService,
   getStudentByIdService,
+  sortStudentsService,
+  getAllStudentsWithSelectService,
   createStudentService,
   createStudentWithDepartmentService,
   updateStudentService,

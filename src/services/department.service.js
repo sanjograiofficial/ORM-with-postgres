@@ -30,31 +30,20 @@ const createDepartmentService = async (data) => {
 };
 
 const updateDepartmentService = async (id, data) => {
-  const department = await prisma.department.update({
+  return await prisma.department.update({
     where: {
       id,
     },
     data,
   });
-  if (!department) {
-    return res.status(404).json({
-      message: "No department found with that id",
-    });
-  }
-  return department;
 };
 
 const deleteDepartmentService = async (id) => {
-  const department = await prisma.department.delete({
+  return await prisma.department.delete({
     where: {
       id,
     },
   });
-  if (!department) {
-    return res.status(404).json({
-      message: "No department found with that id",
-    });
-  }
 };
 
 export {

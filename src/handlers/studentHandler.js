@@ -5,6 +5,7 @@ import {
   createStudentWithDepartmentService,
   deleteStudentService,
   getAllStudentsService,
+  getAllStudentsWithSelectService,
   getStudentByIdService,
   updateStudentService,
 } from "../services/students.service.js";
@@ -18,6 +19,13 @@ const getAllStudents = asyncHandler(async (req, res) => {
     data: allStudents,
   });
 });
+const getAllStudentsWithSelect = async (req, res) => {
+  const student = await getAllStudentsWithSelectService();
+  res.status(200).json({
+    message: "All Students fetched",
+    data: student,
+  });
+};
 const getStudentById = asyncHandler(async (req, res) => {
   let { id } = req.params;
   if (id == "") {
@@ -46,11 +54,7 @@ const createStudent = async (req, res) => {
 };
 const createStudentWithDepartment = async (req, res) => {
   let data = req.body;
-  // console.log(data);
-
   let createdStudent = await createStudentWithDepartmentService(data);
-  console.log(createdStudent);
-  
   res.status(201).json({
     message: "Student created successfully",
     data: createdStudent,

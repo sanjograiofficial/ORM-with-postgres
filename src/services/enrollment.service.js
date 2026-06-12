@@ -30,31 +30,20 @@ const createEnrollmentService = async (data) => {
 };
 
 const updateEnrollmentService = async (id, data) => {
-  const enrollment = await prisma.enrollments.update({
+  return await prisma.enrollments.update({
     where: {
       id,
     },
     data,
   });
-  if (!enrollment) {
-    return res.status(404).json({
-      message: "No enrollment found with that id",
-    });
-  }
-  return enrollment;
 };
 
 const deleteEnrollmentService = async (id) => {
-  const enrollment = await prisma.enrollments.delete({
+  return await prisma.enrollments.delete({
     where: {
       id,
     },
   });
-  if (!enrollment) {
-    return res.status(404).json({
-      message: "No enrollment found with that id",
-    });
-  }
 };
 
 export {
