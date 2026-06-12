@@ -1,5 +1,6 @@
 import {
   createStudent,
+  createStudentWithDepartment,
   deleteStudent,
   getAllStudents,
   getStudentById,
@@ -12,6 +13,7 @@ const router = Router();
 router.get("/", getAllStudents);
 router.get("/:id", getStudentById);
 router.post("/", createStudent);
+router.post("/with-depart", createStudentWithDepartment);
 router.put("/:id", updateStudent);
 router.delete("/:id", deleteStudent);
 

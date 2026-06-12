@@ -3,13 +3,22 @@ import prisma from "../db/db.js";
 const getAllStudentsService = async () => {
   const student = await prisma.students.findMany({
     include: {
-      department: true,
-      enrollments: true,
+      enrollments: {
+        include: {
+          course: true,
+        },
+      },
+      department: {
+        select: {
+          name: true,
+          id: true,
+        },
+      },
     },
   });
   return student;
 };
-
+// multi level include
 const getStudentByIdService = async (id) => {
   const student = await prisma.students.findUnique({
     where: {
@@ -17,7 +26,9 @@ const getStudentByIdService = async (id) => {
     },
     include: {
       department: true,
-      enrollments: true,
+      enrollments: {
+        include: { course: true },
+      },
     },
   });
   if (!student) throw new Error("No student found");
@@ -25,8 +36,30 @@ const getStudentByIdService = async (id) => {
 };
 
 const createStudentService = async (data) => {
+  const { name, email, rollNo, departmentId } = data;
   return await prisma.students.create({
-    data,
+    data: {
+      name,
+      email,
+      rollNo,
+      department: { connect: { id: departmentId } },
+    },
+  });
+};
+const createStudentWithDepartmentService = async (data) => {
+  const { name, email, rollNo, departmentName } = data;
+
+  return await prisma.students.create({
+    data: {
+      name,
+      email,
+      rollNo,
+      department: {
+        create: {
+          name: departmentName,
+        },
+      },
+    },
   });
 };
 
@@ -70,6 +103,7 @@ export {
   getAllStudentsService,
   getStudentByIdService,
   createStudentService,
+  createStudentWithDepartmentService,
   updateStudentService,
   deleteStudentService,
 };
