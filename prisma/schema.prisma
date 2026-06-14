@@ -80,3 +80,23 @@ model Enrollments {
 
   @@map("enrollments")
 }
+
+model Products {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  name String
+  price Float
+
+  @@map("products")
+}
+
+model Users {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  name String
+  email String @unique 
+
+  @@map("users")
+}
